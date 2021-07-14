@@ -17,17 +17,11 @@
         "adminPassword": {
             "value": "Thunder@1234"
         },
-        "adVMSize": {
-            "value": "Standard_D2_v2"
-        },
         "witnessVMSize": {
             "value": "Standard_D1_v2"
         },
         "dnsSuffix": {
             "value": "azs.bsp.com.bn"
-        },
-        "virtualNetworkAddressRange": {
-            "value": "172.32.0.0/16"
         },
         "staticSubnet": {
             "value": "172.32.0.0/24"

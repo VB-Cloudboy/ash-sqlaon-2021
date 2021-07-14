@@ -521,9 +521,8 @@
           "reverseFqdn": "[concat(variables('dnsPrefix'), '.', resourceGroup().location, '.cloudapp.', parameters('dnsSuffix'))]"
         }
       }
-    }
+    },
 
-/*
     {
       "name": "LoadBalancers",
       "type": "Microsoft.Resources/deployments",
@@ -550,9 +549,9 @@
           "sqlLBIPAddress": {
             "value": "[variables('ids').publicIPAddressID]"
           },
-          "staticSubnetRef": {
-            "value": "[variables('sqlSubnetRef')]"
-          },
+          // "staticSubnetRef": {
+          //   "value": "[variables('sqlSubnetRef')]"
+          // },
           "sqlLBBE": {
             "value": "[variables('lbSettings').sqlLBBE]"
           },
@@ -570,8 +569,8 @@
           }
         }
       }
-    },
-*/
+    }
+
 
 /*  
     {

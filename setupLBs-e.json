@@ -14,9 +14,6 @@
         "sqlLBIPAddress": {
             "type": "string"
         },
-        "staticSubnetRef": {
-            "type": "string"
-        },
         "sqlLBBE": {
             "type": "string"
         },

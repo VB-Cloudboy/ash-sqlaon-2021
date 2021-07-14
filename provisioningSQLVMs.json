@@ -108,7 +108,7 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('sqlVMName'),'-osdisk')]",
+            "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-osdisk')]",
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "managedDisk": {

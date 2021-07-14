@@ -38,8 +38,17 @@
         "virtualNetworkName": {
             "value": "mainvnet"
         },
+        "SQLSubnetName": {
+            "value": "sub01-sqlprod"
+        },
+        "VnetResGroup": {
+            "value": "08demo"
+        },
         "NetworkSecGrpName": {
             "value": "nsgsql"
+        },
+        "SQLLoadBalancerName": {
+            "value": "sqlLoadBalancer"
         },
         "SQL-VMname": {
             "value": "pdpsql"

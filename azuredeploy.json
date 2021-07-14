@@ -312,6 +312,24 @@
         "description": "The start hour of a day for auto patching"
       },
       "defaultValue": "2"
+    },
+    "SQLLoadBalancerName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the external Load balancer"
+      }
+    },
+    "SQLSubnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL Subnet Name"
+      }
+    },
+    "VnetResGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource Group Name in which Vnet Resides"
+      }
     }
   },
   "variables": {
@@ -321,11 +339,11 @@
       "adLBBE": "adLBBE",
       "sqlLBBE": "sqlLBBE",
       "rdpLBName": "rdpLoadBalancer",
-      "sqlLBName": "sqlLoadBalancer"
+      "sqlLBName": "[parameters('SQLLoadBalancerName')]"
     },
     "subnetNames": {
-      "staticSubnetName": "staticSubnet",
-      "sqlSubnetName": "sqlSubnet"
+      // "staticSubnetName": "staticSubnet",
+      "sqlSubnetName": "[parameters('SQLSubnetName')]"
     },
     "RDPNAT": "RDP",
     "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
@@ -335,7 +353,7 @@
     "vmSettings": {
       "availabilitySets": {
         "sqlAvailabilitySetName": "sqlAvailabilitySet",
-        "adAvailabilitySetName": "adAvailabilitySet"
+        // "adAvailabilitySetName": "adAvailabilitySet"
       },
       "vmContainerName": "vhds",
       //"adPDCVMName": "[substring(concat('priDC-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
@@ -350,8 +368,8 @@
     "clusterName": "[concat(parameters('deploymentPrefix'),'-fc')]",
     //"adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
-    "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkNameWithSuffix'))]",
-    "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
+    "VnetID": "[resourceId(parameters('VnetResGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkNameWithSuffix'))]",
+    // "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
     "dnsPrefix": "[parameters('sqlAOListenerName')]",
     "publicIPAddressName": "[concat('SQLPIP',resourceGroup().name)]",
@@ -549,9 +567,6 @@
           "sqlLBIPAddress": {
             "value": "[variables('ids').publicIPAddressID]"
           },
-          // "staticSubnetRef": {
-          //   "value": "[variables('sqlSubnetRef')]"
-          // },
           "sqlLBBE": {
             "value": "[variables('lbSettings').sqlLBBE]"
           },
@@ -569,10 +584,8 @@
           }
         }
       }
-    }
-
-
-/*  
+    },
+  
     {
       "name": "CreatingNetworkInterfaces",
       "type": "Microsoft.Resources/deployments",
@@ -609,8 +622,9 @@
           }
         }
       }
-    },
+    }
 
+/*
     {
       "name": "ProvisioningSQLVMs",
       "type": "Microsoft.Resources/deployments",

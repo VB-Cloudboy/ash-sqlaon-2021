@@ -24,17 +24,6 @@
       },
       "defaultValue": "Thunder@1234"
     },
-    "adVMSize": {
-      "type": "string",
-      "allowedValues": [
-        "Standard_D1_v2",
-        "Standard_D2_v2"
-      ],
-      "metadata": {
-        "description": "The size of the AD VM Created"
-      },
-      "defaultValue": "Standard_D2_v2"
-    },
     "witnessVMSize": {
       "type": "string",
       "metadata": {
@@ -55,20 +44,6 @@
         "description": "The DNS Suffix for reverse lookup of public IPAddresses. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       },
       "defaultValue": ""
-    },
-    "virtualNetworkAddressRange": {
-      "type": "string",
-      "metadata": {
-        "description": "The address range of the new VNET in CIDR format"
-      },
-      "defaultValue": "172.32.0.0/16"
-    },
-    "staticSubnet": { 
-      "type": "string",
-      "metadata": {
-        "description": "The address range of the subnet static IPs are allocated from in the new VNET"
-      },
-      "defaultValue": "172.32.0.0/24"
     },
     "sqlSubnet": {
       "type": "string",
@@ -772,7 +747,7 @@
       }
     },
 
-/*
+
     {
       "name": "ConfiguringAlwaysOn",
       "type": "Microsoft.Resources/deployments",
@@ -855,7 +830,7 @@
         }
       }
     }
-*/   
+ 
   ],
   "outputs": {}
 }

@@ -26,12 +26,6 @@
         "dnsSuffix": {
             "value": "azs.bsp.com.bn"
         },
-        "staticSubnet": {
-            "value": "172.32.0.0/24"
-        },
-        "sqlSubnet": {
-            "value": "172.32.1.0/26"
-        },
         "adPDCNICIPAddress": {
             "value": "172.16.0.250"
         },
@@ -43,6 +37,9 @@
         },
         "SQLSubnetName": {
             "value": "sub01-sqlprod"
+        },
+        "sqlSubnet": {
+            "value": "172.32.1.0/26"
         },
         "VnetResGroup": {
             "value": "08demo"

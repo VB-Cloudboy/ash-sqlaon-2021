@@ -326,6 +326,12 @@
       "metadata": {
         "description": "Resource Group Name in which Vnet Resides"
       }
+    },
+    "ADDCvmname": {
+      "type": "string",
+      "metadata": {
+        "description": "The Domain Controller VM name"
+      }
     }
   },
   "variables": {
@@ -352,7 +358,7 @@
         // "adAvailabilitySetName": "adAvailabilitySet"
       },
       "vmContainerName": "vhds",
-      //"adPDCVMName": "[substring(concat('priDC-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
+      "adPDCVMName": "[parameters('ADDCvmname')]",
       "sqlVMName": "[substring(concat(parameters('SQL-VMname'),'-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
       "sqlwVMName": "[substring(concat('fsw-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
       "windowsImagePublisher": "MicrosoftWindowsServer",
@@ -681,9 +687,8 @@
           }
         }
       }
-    }
+    },
 
-/*
     {
       "name": "PreparingAlwaysOnSqlServer",
       "type": "Microsoft.Resources/deployments",
@@ -767,6 +772,7 @@
       }
     },
 
+/*
     {
       "name": "ConfiguringAlwaysOn",
       "type": "Microsoft.Resources/deployments",

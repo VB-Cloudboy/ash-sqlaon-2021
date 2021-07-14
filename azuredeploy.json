@@ -348,7 +348,7 @@
     "sqlAOEPName": "[concat(parameters('deploymentPrefix'),'-hadr')]",
     "sharePath": "[concat(parameters('deploymentPrefix'),'-fsw')]",
     "clusterName": "[concat(parameters('deploymentPrefix'),'-fc')]",
-    "adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
+    //"adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkNameWithSuffix'))]",
     "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
@@ -356,13 +356,13 @@
     "dnsPrefix": "[parameters('sqlAOListenerName')]",
     "publicIPAddressName": "[concat('SQLPIP',resourceGroup().name)]",
     "ids": {
-      "adNicId": "[resourceId('Microsoft.Network/networkInterfaces',variables('adPDCNicName'))]",
+      //"adNicId": "[resourceId('Microsoft.Network/networkInterfaces',variables('adPDCNicName'))]",
       "rdplbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').rdpLBName)]",
       "sqllbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').sqlLBName)]",
       "publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
     },
     "derivedIds": {
-      "adIPConfigID": "[concat(variables('ids').adNicId,'/ipConfigurations/ipconfig1')]",
+      // "adIPConfigID": "[concat(variables('ids').adNicId,'/ipConfigurations/ipconfig1')]",
       "rdplbFEConfigID": "[concat(variables('ids').rdplbID,'/frontendIPConfigurations/',variables('lbSettings').rdpLBFE)]",
       "adRDPNATRuleID": "[concat(variables('ids').rdplbID,'/inboundNatRules/',variables('RDPNAT'))]",
       "adBEAddressPoolID": "[concat(variables('ids').rdplbID,'/backendAddressPools/',variables('lbSettings').adLBBE)]",

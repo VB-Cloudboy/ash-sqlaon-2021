@@ -1,1 +1,1 @@
-# ash-sqlaon-2021
+# ash-sqlaon

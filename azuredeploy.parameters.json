@@ -1,0 +1,105 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "domainName": {
+            "value": "fabrikam.local"
+        },
+        "sqlServerServiceAccountUserName": {
+            "value": "sqlservice"
+        },
+        "adminUsername": {
+            "value": "localadmin"
+        },
+        "_artifactsLocation": {
+            "value": "https://raw.githubusercontent.com/VB-Cloudboy/ash-sqlaon-2021"
+        },
+        "adminPassword": {
+            "value": "Thunder@1234"
+        },
+        "adVMSize": {
+            "value": "Standard_D2_v2"
+        },
+        "witnessVMSize": {
+            "value": "Standard_D1_v2"
+        },
+        "dnsSuffix": {
+            "value": "azs.bsp.com.bn"
+        },
+        "virtualNetworkAddressRange": {
+            "value": "172.32.0.0/16"
+        },
+        "staticSubnet": {
+            "value": "172.32.0.0/24"
+        },
+        "sqlSubnet": {
+            "value": "172.32.1.0/26"
+        },
+        "adPDCNICIPAddress": {
+            "value": "172.16.0.250"
+        },
+        "deploymentPrefix": {
+            "value": "aodns"
+        },
+        "virtualNetworkName": {
+            "value": "mainvnet"
+        },
+        "NetworkSecGrpName": {
+            "value": "nsgsql"
+        },
+        "SQL-VMname": {
+            "value": "pdpsql"
+        },
+        "sqlServerServiceAccountPassword": {
+            "value": "Thudner@1234"
+        },
+        "sqlAuthUserName": {
+            "value": "sqlsa"
+        },
+        "sqlAuthPassword": {
+            "value": "Thudner@1234"
+        },
+        "sqlStorageAccountName": {
+            "value": "insqlstrg"
+        },
+        "sqlStorageAccountType": {
+            "value": "Premium_LRS"
+        },
+        "sqlServerOffer": {
+            "value": "SQL2016SP2-WS2016"
+        },
+        "sqlServerSku": {
+            "value": "Enterprise"
+        },
+        "sqlVMSize": {
+            "value": "Standard_DS2_v2"
+        },
+        "sqlAOAGName": {
+            "value": "ssqlaa-ag"
+        },
+        "sqlAOListenerName": {
+            "value": "saon08"
+        },
+        "sqlAOListenerPort": {
+            "value": "1433"
+        },
+        "workloadType": {
+            "value": "GENERAL"
+        },
+        "vmDiskSize": {
+            "value": "128"
+        },
+        "numberOfSqlVMDisks": {
+            "value": 2
+        },
+        "sampleDatabaseName": {
+            "value": "trumpAutoHa"
+        },
+        "autoPatchingDay": {
+            "value": "Sunday"
+        },
+        "autoPatchingStartHour": {
+            "value": "2"
+        }
+    }
+}

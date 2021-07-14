@@ -155,6 +155,12 @@
       },
       "defaultValue": "Premium_LRS"
     },
+    "SQL-VMname": {
+      "type": "string",
+      "metadata": {
+        "description": "Name Of SQL Virtual machine"
+      }
+    },
     "sqlServerOffer": {
       "type": "string",
       "allowedValues": [
@@ -332,8 +338,8 @@
         "adAvailabilitySetName": "adAvailabilitySet"
       },
       "vmContainerName": "vhds",
-      "adPDCVMName": "[substring(concat('priDC-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
-      "sqlVMName": "[substring(concat('sql-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
+      //"adPDCVMName": "[substring(concat('priDC-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
+      "sqlVMName": "[substring(concat(parameters('SQL-VMname'),'-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
       "sqlwVMName": "[substring(concat('fsw-', uniquestring(replace(resourceGroup().Id,'-',''))), 0, 8)]",
       "windowsImagePublisher": "MicrosoftWindowsServer",
       "windowsImageOffer": "WindowsServer",
@@ -395,7 +401,7 @@
         }
       }
     ],
-    "virtualNetworkNameWithSuffix": "[substring(concat(parameters('virtualNetworkName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
+    "virtualNetworkNameWithSuffix": "[parameters('virtualNetworkName')]",
     // "primaryDCIPAddressNameWithSuffix": "[substring(concat(variables('primaryDCIPAddressName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
     "sql1AddressNameWithSuffix": "[substring(concat(variables('sql1AddressName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
     "sql0AddressNameWithSuffix": "[substring(concat(variables('sql0AddressName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
@@ -446,12 +452,12 @@
           }
         ]
       }
-    }
-/*
+    },
+
     {
       "name": "StorageAccountVirtualNetworkPublicIP",
       "type": "Microsoft.Resources/deployments",
-      "comments": "This resource will create storage accounts for Active Directory, SQL Server, File Share Witness and Diagnostics. It will also create the Virtual Network and public IP addresses",
+      "comments": "This resource will refer storage accounts SQL Server, File Share Witness and Diagnostics, Virtual Network. It will also create the  public IP addresses",
       "dependsOn": [
         "[variables('nsgID')]"
       ],
@@ -480,6 +486,7 @@
           "sql0AddressNameWithSuffix": {
             "value": "[variables('sql0AddressNameWithSuffix')]"
           },
+          /*
           "virtualNetworkName": {
             "value": "[variables('virtualNetworkNameWithSuffix')]"
           },
@@ -492,13 +499,14 @@
           "nsgID": {
             "value": "[variables('nsgID')]"
           },
+          */
           "dnsSuffix": {
             "value": "[parameters('dnsSuffix')]"
           }
         }
       }
-    },
-*/ 
+    }
+
 
 /*
     {

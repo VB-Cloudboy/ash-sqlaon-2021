@@ -342,7 +342,7 @@
       "sqlLBName": "[parameters('SQLLoadBalancerName')]"
     },
     "subnetNames": {
-      // "staticSubnetName": "staticSubnet",
+      
       "sqlSubnetName": "[parameters('SQLSubnetName')]"
     },
     "RDPNAT": "RDP",
@@ -352,7 +352,7 @@
     "sql0AddressName": "sql0IP",
     "vmSettings": {
       "availabilitySets": {
-        "sqlAvailabilitySetName": "sqlAvailabilitySet",
+        "sqlAvailabilitySetName": "sqlAvailabilitySet"
         // "adAvailabilitySetName": "adAvailabilitySet"
       },
       "vmContainerName": "vhds",
@@ -369,7 +369,7 @@
     //"adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
     "VnetID": "[resourceId(parameters('VnetResGroup'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkNameWithSuffix'))]",
-    // "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
+    
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
     "dnsPrefix": "[parameters('sqlAOListenerName')]",
     "publicIPAddressName": "[concat('SQLPIP',resourceGroup().name)]",

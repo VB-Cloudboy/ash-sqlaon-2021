@@ -43,7 +43,7 @@
       "type": "string"
     },
     "numberOfDisks": {
-      "type": "array"
+      "type": "string"
     },
     "vmDiskSize": {
       "type": "string"
@@ -115,7 +115,7 @@
           "copy": [
             {
               "name": "dataDisks",
-              "count": "[length(parameters('numberOfDisks'))]",
+              "count": "[parameters('numberOfDisks')]",
               "input": {
                 "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('dataDisks'))]",
                 "caching": "ReadOnly",
@@ -150,7 +150,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "diskcreation",
-        "count": "[length(parameters('numberOfDisks'))]"
+        "count": "[parameters('numberOfDisks')]"
       },
       "properties": {
         "diskSizeGB": "[parameters('vmDiskSize')]",

@@ -352,7 +352,7 @@
     "sql0AddressName": "sql0IP",
     "vmSettings": {
       "availabilitySets": {
-        "sqlAvailabilitySetName": "sqlAvailabilitySet"
+        "sqlAvailabilitySetName": "[concat(parameters('SQL-VMname'),'-avs')]"
         // "adAvailabilitySetName": "adAvailabilitySet"
       },
       "vmContainerName": "vhds",

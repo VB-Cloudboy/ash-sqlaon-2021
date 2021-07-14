@@ -8,7 +8,7 @@
       "metadata": {
         "description": "Artifacts base url"
       },
-      "defaultValue": "https://raw.githubusercontent.com/VB-Cloudboy/ash-sqlaon"
+      "defaultValue": "https://raw.githubusercontent.com/VB-Cloudboy/ash-sqlaon-2021"
     },
     "adminUsername": {
       "type": "string",
@@ -58,7 +58,7 @@
       "metadata": {
         "description": "The DNS Suffix for reverse lookup of public IPAddresses. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       },
-      "defaultValue": "azs.bsp.com.bn"
+      "defaultValue": ""
     },
     "virtualNetworkAddressRange": {
       "type": "string",
@@ -67,7 +67,7 @@
       },
       "defaultValue": "172.32.0.0/16"
     },
-    "staticSubnet": {
+    "staticSubnet": { 
       "type": "string",
       "metadata": {
         "description": "The address range of the subnet static IPs are allocated from in the new VNET"
@@ -101,6 +101,13 @@
         "description": "Name of virtual network to be created"
       },
       "defaultValue": "ssqlhaVNET"
+    },
+    "NetworkSecGrpName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of Network Security Group"
+      },
+      "defaultValue": ""
     },
     "sqlServerServiceAccountUserName": {
       "type": "string",
@@ -366,7 +373,7 @@
     "Sunday": true,
     "Never": false,
     "Everyday": true,
-    "nsgName": "[concat('Nsg',resourceGroup().name)]",
+    "nsgName": "[parameters('NetworkSecGrpName')]",
     "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
     "subnets": [
       {
@@ -425,7 +432,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "rule1",
+            "name": "IncomingRule01",
             "properties": {
               "protocol": "*",
               "sourcePortRange": "*",
@@ -439,8 +446,8 @@
           }
         ]
       }
-    },
-    
+    }
+/*
     {
       "name": "StorageAccountVirtualNetworkPublicIP",
       "type": "Microsoft.Resources/deployments",
@@ -461,19 +468,9 @@
           "sqlStorageAccountName": {
             "value": "[parameters('sqlStorageAccountName')]"
           },
-          /*
-          "dcStorageAccountName": {
-            "value": "[variables('dcStorageAccountName')]"
-          },
-          */
           "SqlStorageAccountType": {
             "value": "[parameters('sqlStorageAccountType')]"
           },
-          /*
-          "primaryDCIPAddressNameWithSuffix": {
-            "value": "[variables('primaryDCIPAddressNameWithSuffix')]"
-          },
-          */
           "sqlVMName": {
             "value": "[variables('vmSettings').sqlVMName]"
           },
@@ -501,7 +498,9 @@
         }
       }
     },
+*/ 
 
+/*
     {
       "name": "[variables('publicIPAddressName')]",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -565,142 +564,9 @@
         }
       }
     },
-/*   
-    {
-      "name": "CreatingADNetworkInterface",
-      "type": "Microsoft.Resources/deployments",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/LoadBalancers"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('configuration').creatingADNICUrl]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[resourceGroup().location]"
-          },
-          "adPDCNicName": {
-            "value": "[variables('adPDCNicName')]"
-          },
-          "adPDCNICIPAddress": {
-            "value": "[parameters('adPDCNICIPAddress')]"
-          },
-          "staticSubnetRef": {
-            "value": "[variables('staticSubnetRef')]"
-          },
-          "adBEAddressPoolID": {
-            "value": "[variables('derivedIds').adBEAddressPoolID]"
-          },
-          "adRDPNATRuleID": {
-            "value": "[variables('derivedIds').adRDPNATRuleID]"
-          },
-          "primaryDCIPAddressNameWithSuffix": {
-            "value": "[variables('primaryDCIPAddressNameWithSuffix')]"
-          }
-        }
-      }
-    },  
-    {
-      "name": "ProvisioningADVM",
-      "type": "Microsoft.Resources/deployments",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/CreatingADNetworkInterface"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('configuration').provisioningADVM]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "adPDCVMName": {
-            "value": "[variables('vmSettings').adPDCVMName]"
-          },
-          "adAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.adAvailabilitySetName]"
-          },
-          "dcStorageAccountName": {
-            "value": "[variables('dcStorageAccountName')]"
-          },
-          "sqlStorageAccountName": {
-            "value": "[parameters('sqlStorageAccountName')]"
-          },
-          "location": {
-            "value": "[resourceGroup().location]"
-          },
-          "adVMSize": {
-            "value": "[parameters('adVMSize')]"
-          },
-          "adminUsername": {
-            "value": "[parameters('adminUsername')]"
-          },
-          "adminPassword": {
-            "value": "[parameters('adminPassword')]"
-          },
-          "adImagePublisher": {
-            "value": "[variables('vmSettings').windowsImagePublisher]"
-          },
-          "adImageOffer": {
-            "value": "[variables('vmSettings').windowsImageOffer]"
-          },
-          "adImageSKU": {
-            "value": "[variables('vmSettings').windowsImageSKU]"
-          },
-          "vmContainerName": {
-            "value": "[variables('vmSettings').vmContainerName]"
-          },
-          "adPDCNicName": {
-            "value": "[variables('adPDCNicName')]"
-          },
-          "domainName": {
-            "value": "[parameters('domainName')]"
-          },
-          "adPDCConfigurationFunction": {
-            "value": "[variables('configuration').adPDCConfigurationFunction]"
-          },
-          "adPDCModulesURL": {
-            "value": "[variables('configuration').adPDCModulesURL]"
-          }
-        }
-      }
-    },
-    {
-      "name": "UpdatingDNStoPrimaryADVM",
-      "type": "Microsoft.Resources/deployments",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisioningADVM"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('configuration').vnetwithDNSTemplateURL]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[resourceGroup().location]"
-          },
-          "virtualNetworkName": {
-            "value": "[variables('virtualNetworkNameWithSuffix')]"
-          },
-          "virtualNetworkAddressRange": {
-            "value": "[parameters('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[variables('subnets')]"
-          },
-          "DNSServerAddress": {
-            "value": [
-              "[parameters('adPDCNICIPAddress')]"
-            ]
-          }
-        }
-      }
-    },
-*/   
+*/
+
+/*  
     {
       "name": "CreatingNetworkInterfaces",
       "type": "Microsoft.Resources/deployments",
@@ -975,7 +841,7 @@
         }
       }
     }
-    
+*/   
   ],
   "outputs": {}
 }

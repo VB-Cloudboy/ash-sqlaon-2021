@@ -18,7 +18,7 @@
             "value": "Thunder@1234"
         },
         "witnessVMSize": {
-            "value": "Standard_DS2_v2"
+            "value": "Standard_D2_v2"
         },
         "dnsSuffix": {
             "value": "azs.bsp.com.bn"

@@ -505,10 +505,8 @@
           }
         }
       }
-    }
+    },
 
-
-/*
     {
       "name": "[variables('publicIPAddressName')]",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -523,8 +521,9 @@
           "reverseFqdn": "[concat(variables('dnsPrefix'), '.', resourceGroup().location, '.cloudapp.', parameters('dnsSuffix'))]"
         }
       }
-    },
+    }
 
+/*
     {
       "name": "LoadBalancers",
       "type": "Microsoft.Resources/deployments",

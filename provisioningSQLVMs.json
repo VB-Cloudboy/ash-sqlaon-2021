@@ -59,8 +59,8 @@
     }
   },
   "variables": {
-    "fwstorageName": "[concat(uniquestring(parameters('sqlStorageAccountName')), 'fsw')]",
-    "diagstorageName": "[concat(uniquestring(parameters('sqlStorageAccountName')), 'diag')]",
+    "fwstorageName": "[parameters('sqlStorageAccountName')]",
+    "diagstorageName": "[parameters('sqlStorageAccountName')]",
     "updateDomainCount": "5",
     "faultDomainCount": "3"
   },
@@ -105,26 +105,25 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "osdisk",
-            "vhd": {
-              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', parameters('sqlStorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-osdisk.vhd')]"
-            },
+            "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-osdisk')]",
             "caching": "ReadWrite",
+            "managedDisk": {
+                "storageAccountType": "Premium_LRS"
+            },
             "createOption": "FromImage"
           },
           "copy": [
             {
               "name": "dataDisks",
-              "count": "[parameters('numberOfDisks')]",
+              "count": "[length(parameters('numberOfDisks'))]",
               "input": {
-                "vhd": {
-                  "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', parameters('sqlStorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, parameters('vmContainerName'),'/', parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-Data-', copyIndex('dataDisks'),'.vhd')]"
-                },
                 "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('dataDisks'))]",
                 "caching": "ReadOnly",
-                "createOption": "empty",
-                "diskSizeGB": "[parameters('vmDiskSize')]",
-                "lun": "[copyIndex('dataDisks')]"
+                "createOption": "attach",
+                "lun": "[copyIndex('dataDisks')]",
+                "managedDisk": {
+                  "id":"[resourceId('Microsoft.Compute/disks',concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('diskcreation')))]"
+                }
               }
             }
           ]
@@ -142,6 +141,25 @@
             "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('diagstorageName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob)]"
           }
         }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/disks",
+      "apiVersion": "2019-07-01",
+      "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('diskcreation'))]",
+      "location": "[parameters('location')]",
+      "copy": {
+        "name": "diskcreation",
+        "count": "[length(parameters('numberOfDisks'))]"
+      },
+      "properties": {
+        "diskSizeGB": "[parameters('vmDiskSize')]",
+        "creationData": {
+          "createOption": "empty"
+        }
+      },
+      "sku": {
+        "name": "Premium_LRS"
       }
     },
     {
@@ -171,18 +189,15 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "osdisk",
-            "vhd": {
-              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('fwstorageName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob ,parameters('vmContainerName'),'/', parameters('sqlwVMName'), '-osdisk.vhd')]"
-            },
+            "name": "[concat(parameters('sqlwVMName'),'-osdisk')]",
             "caching": "ReadWrite",
+            "managedDisk": {
+                "storageAccountType": "Premium_LRS"
+            },
             "createOption": "FromImage"
           },
           "dataDisks": [
             {
-              "vhd": {
-                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('fwstorageName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob ,parameters('vmContainerName'),'/', parameters('sqlwVMName'), '-data-1.vhd')]"
-              },
               "name": "[concat(parameters('sqlwVMName'),'-data-disk1')]",
               "caching": "None",
               "createOption": "Empty",

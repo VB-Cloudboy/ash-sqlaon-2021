@@ -90,7 +90,7 @@
             "value": "GENERAL"
         },
         "vmDiskSize": {
-            "value": "128"
+            "value": "256"
         },
         "numberOfSqlVMDisks": {
             "value": 2

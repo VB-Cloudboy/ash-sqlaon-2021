@@ -613,9 +613,9 @@
           }
         }
       }
-    }
+    },
 
-/*
+
     {
       "name": "ProvisioningSQLVMs",
       "type": "Microsoft.Resources/deployments",
@@ -685,8 +685,9 @@
           }
         }
       }
-    },
+    }
 
+/*
     {
       "name": "PreparingAlwaysOnSqlServer",
       "type": "Microsoft.Resources/deployments",

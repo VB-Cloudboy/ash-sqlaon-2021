@@ -43,7 +43,7 @@
       "type": "string"
     },
     "numberOfDisks": {
-      "type": "string"
+      "type": "int"
     },
     "vmDiskSize": {
       "type": "string"
@@ -105,12 +105,12 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-osdisk')]",
+            "name": "[concat(parameters('sqlVMName'),'-osdisk')]",
             "caching": "ReadWrite",
+            "createOption": "FromImage",
             "managedDisk": {
-                "storageAccountType": "Premium_LRS"
-            },
-            "createOption": "FromImage"
+              "storageAccountType": "Premium_LRS"
+            }
           },
           "copy": [
             {
@@ -119,11 +119,9 @@
               "input": {
                 "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('dataDisks'))]",
                 "caching": "ReadOnly",
-                "createOption": "attach",
-                "lun": "[copyIndex('dataDisks')]",
-                "managedDisk": {
-                  "id":"[resourceId('Microsoft.Compute/disks',concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('diskcreation')))]"
-                }
+                "createOption": "empty",
+                "diskSizeGB": "[parameters('vmDiskSize')]",
+                "lun": "[copyIndex('dataDisks')]"
               }
             }
           ]
@@ -141,25 +139,6 @@
             "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('diagstorageName')),providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob)]"
           }
         }
-      }
-    },
-    {
-      "type": "Microsoft.Compute/disks",
-      "apiVersion": "2019-07-01",
-      "name": "[concat(parameters('sqlVMName'), copyIndex('sqlvirtualMachineLoop'),'-data-disk', copyIndex('diskcreation'))]",
-      "location": "[parameters('location')]",
-      "copy": {
-        "name": "diskcreation",
-        "count": "[parameters('numberOfDisks')]"
-      },
-      "properties": {
-        "diskSizeGB": "[parameters('vmDiskSize')]",
-        "creationData": {
-          "createOption": "empty"
-        }
-      },
-      "sku": {
-        "name": "Premium_LRS"
       }
     },
     {
@@ -191,13 +170,14 @@
           "osDisk": {
             "name": "[concat(parameters('sqlwVMName'),'-osdisk')]",
             "caching": "ReadWrite",
+            "createOption": "FromImage",
             "managedDisk": {
-                "storageAccountType": "Premium_LRS"
-            },
-            "createOption": "FromImage"
+              "storageAccountType": "Premium_LRS"
+            }
           },
           "dataDisks": [
             {
+
               "name": "[concat(parameters('sqlwVMName'),'-data-disk1')]",
               "caching": "None",
               "createOption": "Empty",

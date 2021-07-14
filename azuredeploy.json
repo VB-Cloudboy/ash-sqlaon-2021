@@ -247,10 +247,13 @@
       "defaultValue": "128"
     },
     "numberOfSqlVMDisks": {
-      "type": "string",
+      "type": "int",
       "metadata": {
         "description": "Number of data disks (subject to VM size limitations)"
-      }
+      },
+      "minValue": 1,
+      "maxValue": 32,
+      "defaultValue": 2
     },
     "sampleDatabaseName": {
       "type": "string",

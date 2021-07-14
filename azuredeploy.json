@@ -401,15 +401,6 @@
     "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
     "subnets": [
       {
-        "name": "[variables('subnetNames').staticSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('staticSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('nsgID')]"
-          }
-        }
-      },
-      {
         "name": "[variables('subnetNames').sqlSubnetName]",
         "properties": {
           "addressPrefix": "[parameters('sqlSubnet')]",

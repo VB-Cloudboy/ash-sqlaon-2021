@@ -557,6 +557,10 @@
     {
       "name": "CreatingNetworkInterfaces",
       "type": "Microsoft.Resources/deployments",
+      "comments": "Create Network Interfaces for SQL VMs",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'LoadBalancers')]"
+      ], 
       "properties": {
         "mode": "Incremental",
         "templateLink": {

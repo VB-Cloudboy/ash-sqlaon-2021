@@ -9,10 +9,10 @@
             "value": "fabrikam.local"
         },
         "sqlServerServiceAccountUserName": {
-            "value": "sqlservice"
+            "value": "bspsqlservice"
         },
         "adminUsername": {
-            "value": "localadmin"
+            "value": "bspadmin"
         },
         "_artifactsLocation": {
             "value": "https://raw.githubusercontent.com/VB-Cloudboy/ash-sqlaon-2021"
@@ -21,7 +21,7 @@
             "value": "Thunder@1234"
         },
         "witnessVMSize": {
-            "value": "Standard_D2_v2"
+            "value": "Standard_DS2_v2"
         },
         "dnsSuffix": {
             "value": "azs.bsp.com.bn"
@@ -30,7 +30,7 @@
             "value": "172.16.0.250"
         },
         "deploymentPrefix": {
-            "value": "aodns"
+            "value": "bspdns"
         },
         "virtualNetworkName": {
             "value": "mainvnet"
@@ -48,10 +48,10 @@
             "value": "nsgsql"
         },
         "SQLLoadBalancerName": {
-            "value": "sqlLoadBalancer"
+            "value": "awpsql-lb"
         },
         "SQL-VMname": {
-            "value": "pdpsql"
+            "value": "awpsql"
         },
         "sqlServerServiceAccountPassword": {
             "value": "Thudner@1234"
@@ -78,10 +78,10 @@
             "value": "Standard_DS2_v2"
         },
         "sqlAOAGName": {
-            "value": "ssqlaa-ag"
+            "value": "awpssql-ag"
         },
         "sqlAOListenerName": {
-            "value": "saon08"
+            "value": "awpaon"
         },
         "sqlAOListenerPort": {
             "value": "1433"
@@ -96,7 +96,7 @@
             "value": 2
         },
         "sampleDatabaseName": {
-            "value": "trumpAutoHa"
+            "value": "awpAutoHa"
         },
         "autoPatchingDay": {
             "value": "Sunday"

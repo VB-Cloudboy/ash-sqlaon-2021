@@ -73,13 +73,6 @@
       },
       "defaultValue": "ssqlhaVNET"
     },
-    "NetworkSecGrpName": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of Network Security Group"
-      },
-      "defaultValue": ""
-    },
     "sqlServerServiceAccountUserName": {
       "type": "string",
       "metadata": {
@@ -374,19 +367,7 @@
     "Sunday": true,
     "Never": false,
     "Everyday": true,
-    "nsgName": "[parameters('NetworkSecGrpName')]",
-    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]",
-    "subnets": [
-      {
-        "name": "[variables('subnetNames').sqlSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('sqlSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('nsgID')]"
-          }
-        }
-      }
-    ],
+
     "virtualNetworkNameWithSuffix": "[parameters('virtualNetworkName')]",
     // "primaryDCIPAddressNameWithSuffix": "[substring(concat(variables('primaryDCIPAddressName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
     "sql1AddressNameWithSuffix": "[substring(concat(variables('sql1AddressName'), uniqueString(parameters('sqlStorageAccountName'))),0,15)]",
@@ -417,6 +398,7 @@
     }
   },
   "resources": [
+/*    
     {
       "name": "[variables('nsgName')]",
       "location": "[resourceGroup().location]",
@@ -439,14 +421,11 @@
         ]
       }
     },
-
+*/
     {
       "name": "StorageAccountVirtualNetworkPublicIP",
       "type": "Microsoft.Resources/deployments",
       "comments": "This resource will refer storage accounts SQL Server, File Share Witness and Diagnostics, Virtual Network. It will also create the  public IP addresses",
-      "dependsOn": [
-        "[variables('nsgID')]"
-      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -472,20 +451,6 @@
           "sql0AddressNameWithSuffix": {
             "value": "[variables('sql0AddressNameWithSuffix')]"
           },
-          /*
-          "virtualNetworkName": {
-            "value": "[variables('virtualNetworkNameWithSuffix')]"
-          },
-          "virtualNetworkAddressRange": {
-            "value": "[parameters('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[variables('subnets')]"
-          },
-          "nsgID": {
-            "value": "[variables('nsgID')]"
-          },
-          */
           "dnsSuffix": {
             "value": "[parameters('dnsSuffix')]"
           }
@@ -666,8 +631,8 @@
           }
         }
       }
-    },
-
+    }
+/*
     {
       "name": "PreparingAlwaysOnSqlServer",
       "type": "Microsoft.Resources/deployments",
@@ -834,7 +799,7 @@
         }
       }
     }
- 
+*/
   ],
   "outputs": {}
 }

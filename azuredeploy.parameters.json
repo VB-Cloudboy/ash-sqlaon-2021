@@ -33,37 +33,34 @@
             "value": "bspdns"
         },
         "virtualNetworkName": {
-            "value": "mainvnet"
+            "value": "mainsqlvnet"
         },
         "SQLSubnetName": {
             "value": "sub01-sqlprod"
         },
         "sqlSubnet": {
-            "value": "172.32.1.0/26"
+            "value": "10.2.1.0/26"
         },
         "VnetResGroup": {
-            "value": "08demo"
-        },
-        "NetworkSecGrpName": {
-            "value": "nsgsql"
+            "value": "03demo"
         },
         "SQLLoadBalancerName": {
-            "value": "awpsql-lb"
+            "value": "cmpsql-lb"
         },
         "SQL-VMname": {
-            "value": "awpsql"
+            "value": "cmpsql"
         },
         "sqlServerServiceAccountPassword": {
             "value": "Thudner@1234"
         },
         "sqlAuthUserName": {
-            "value": "sqlsa"
+            "value": "cmpsqlsa"
         },
         "sqlAuthPassword": {
             "value": "Thudner@1234"
         },
         "sqlStorageAccountName": {
-            "value": "insqlstrg"
+            "value": "cmpstrg"
         },
         "sqlStorageAccountType": {
             "value": "Premium_LRS"
@@ -78,10 +75,10 @@
             "value": "Standard_DS2_v2"
         },
         "sqlAOAGName": {
-            "value": "awpssql-ag"
+            "value": "cmpssql-ag"
         },
         "sqlAOListenerName": {
-            "value": "awpaon"
+            "value": "cmpaon"
         },
         "sqlAOListenerPort": {
             "value": "1433"

@@ -349,7 +349,7 @@
     
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
     "dnsPrefix": "[parameters('sqlAOListenerName')]",
-    "publicIPAddressName": "[concat('SQLPIP',resourceGroup().name)]",
+    "publicIPAddressName": "[concat('SQLPIP', parameters('SQL-VMname'))]",
     "ids": {
       //"adNicId": "[resourceId('Microsoft.Network/networkInterfaces',variables('adPDCNicName'))]",
       "rdplbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').rdpLBName)]",

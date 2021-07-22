@@ -632,7 +632,7 @@
         }
       }
     }
-/*
+
     {
       "name": "PreparingAlwaysOnSqlServer",
       "type": "Microsoft.Resources/deployments",
@@ -799,7 +799,7 @@
         }
       }
     }
-*/
+
   ],
   "outputs": {}
 }
